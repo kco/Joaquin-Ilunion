@@ -1,0 +1,88 @@
+<form (ngSubmit)="registrarUsuario()" [formGroup]="forma" class="container">
+
+    <h3 class="mt-4 mb-3">Regístrate</h3>
+
+
+    <div class="form-row">
+
+        <div class="col-md-6 mb-3">
+
+            <label for="nombre">Nombre*</label>
+
+            <input formControlName="nombre" name="nombre" id="nombre" class="form-control" type="text" placeholder="Nombre" [ngClass]=" { 'is-invalid': forma.controls['nombre'].invalid && forma.controls['nombre'].touched,
+                                    'is-valid': forma.controls['nombre'].valid && forma.controls['nombre'].touched}">
+            <div class="invalid-feedback" *ngIf="forma.get('nombre').hasError('required')">
+                El nombre es un campo requerido
+            </div>
+
+
+        </div>
+
+        <div class="col-md-6 mb-3">
+
+            <label for="correo">Email*</label>
+
+            <input formControlName="correo" name="correo" id="correo" class="form-control" type="email" placeholder="Email" [ngClass]=" { 'is-invalid': forma.controls['correo'].invalid && forma.controls['correo'].touched,
+                                    'is-valid': forma.controls['correo'].valid && forma.controls['correo'].touched}">
+            <div class="invalid-feedback" *ngIf="forma.get('correo').hasError('required')">
+                El email es un campo requerido
+            </div>
+            <div class="invalid-feedback" *ngIf="forma.get('correo').hasError('pattern')">
+                El email escrito no es válido
+            </div>
+            <div class="invalid-feedback" *ngIf="forma.get('correo').hasError('validarEmail')">
+                El email introducido ya esta dado de alta
+            </div>
+
+            <!-- <div class="text-info" *ngIf="forma.get('correo').status === 'PENDING'">
+                Comprobando que el email no esta dado de alta
+            </div> -->
+
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-6 mb-3">
+
+            <label for="empresa">Empresa</label>
+            <input formControlName="empresa" name="empresa" id="empresa" class="form-control" type="text" placeholder="Empresa">
+        </div>
+
+
+        <div class="col-md-6 mb-3">
+
+            <label for="pais">País*</label>
+            <select formControlName="pais" name="pais" class="form-control" [ngClass]=" { 'is-invalid': forma.controls['pais'].invalid && forma.controls['pais'].touched, 
+                                  'is-valid': forma.controls['pais'].valid && forma.controls['pais'].touched}">
+                        <option *ngFor="let pais of paises; let i = index" [ngValue]="pais">
+                            {{ pais.nombre }}
+                        </option>
+
+                    </select>
+            <div class="invalid-feedback" *ngIf="forma.get('pais').hasError('validarPais')">
+                Debe elegir un país
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-row">
+
+        <div class="col-md-12 mb-3">
+            <label for="pais">Fecha actual en tu ordenador</label>
+            <input formControlName="fecha" name="fecha" class="form-control" type="datetime" readonly value="{{ ahora | date:'full' }}">
+        </div>
+
+    </div>
+
+
+
+
+    <div class="form-group mt-4">
+        <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase" type="submit">Registrarme</button>
+        </div>
+    </div>
+
+</form>

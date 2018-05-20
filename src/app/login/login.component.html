@@ -1,0 +1,55 @@
+<form (ngSubmit)="ingresar()" [formGroup]="forma" class="container">
+
+
+    <h3 class="mt-4 mb-3">Acceso</h3>
+
+
+    <div class="form-row">
+
+
+        <div *ngIf="messageError" class="col-md-12">
+
+            <div class="alert alert-danger" role="alert">
+
+                El email no está registrado, por favor para acceder
+
+                <a routerLink="/register" class="alert-link">registrate</a>.
+
+            </div>
+        </div>
+
+
+
+        <div class="col-md-12 mb-3">
+
+            <label for="correo">Email*</label>
+
+            <input formControlName="correo" name="correo" id="correo" class="form-control" type="email" placeholder="Email" [ngClass]=" { 'is-invalid': forma.controls['correo'].invalid && forma.controls['correo'].touched,
+                                    'is-valid': forma.controls['correo'].valid && forma.controls['correo'].touched}">
+            <div class="invalid-feedback" *ngIf="forma.get('correo').hasError('required')">
+                El email es un campo requerido
+            </div>
+            <div class="invalid-feedback" *ngIf="forma.get('correo').hasError('pattern')">
+                El email escrito no es válido
+            </div>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <p class="text-right">No estás registrado?
+            <a routerLink="/register" class="text-primary m-l-5">
+                <b>registrate</b>
+            </a>
+        </p>
+
+    </div>
+
+
+    <div class="form-group mt-4">
+        <div class="col-xs-12">
+            <button class="btn btn-info btn-lg btn-block text-uppercase" type="submit">Entrar</button>
+        </div>
+    </div>
+
+</form>
